@@ -3,51 +3,44 @@ var GIPHY_PUB_KEY = '5RLsFpiuRUVvM14aFDqCfad9XQijCkap';
 
 App = React.createClass({
     getInitialState() {
-    return {
-        loading: false,
-        searchingText: '',
-        gif: {}
-    };
-},
+        return {
+            loading: false,
+            searchingText: '',
+            gif: {}
+        };
+    },
 
+    handleSearch: function(searchingText) {
+        this.setState({
+            loading: true
+        });
+        this.getGif(searchingText, function(gif) {
+            this.setState({
+                loading: false,
+                gif: gif,
+                searchingText: searchingText
+            });
+        }.bind(this));
+    },
 
-
-
-handleSearch: function(searchingText) {  // 1.
-    this.setState({
-      loading: true  // 2.
-    });
-    this.getGif(searchingText, function(gif) {  // 3.
-      this.setState({  // 4
-        loading: false,  // a
-        gif: gif,  // b
-        searchingText: searchingText  // c
-      });
-    }.bind(this));
-  },
-
-  getGif: function(searchingText, callback) {  // 1.
-    var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;  // 2.
-    var xhr = new XMLHttpRequest();  // 3.
+    getGif: function(searchingText, callback) {
+    var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;
+    var xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.onload = function() {
         if (xhr.status === 200) {
-           var data = JSON.parse(xhr.responseText).data; // 4.
-            var gif = {  // 5.
-                url: data.fixed_width_downsampled_url,
-                sourceUrl: data.url
+            var data = JSON.parse(xhr.responseText).data;
+            var gif = {
+            url: data.fixed_width_downsampled_url,
+            sourceUrl: data.url
             };
-            callback(gif);  // 6.
+            callback(gif);
         }
     };
     xhr.send();
 },
 
-
-
-
     render: function() {
-
         var styles = {
             margin: '0 auto',
             textAlign: 'center',
