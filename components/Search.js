@@ -1,9 +1,9 @@
 Search = React.createClass({
-    getInitialState() {
-  return {
-    searchingText: ''
-  };
-},
+  getInitialState() {
+    return {
+      searchingText: ''
+    };
+  },
 
   handleChange: function(event) {
     var searchingText = event.target.value;
@@ -24,12 +24,12 @@ Search = React.createClass({
     var styles = {fontSize: '1.5em', width: '90%', maxWidth: '350px'};
 
     return <input
-             type="text"
-             onChange={this.handleChange}
-             onKeyUp={this.handleKeyUp}
-             placeholder={"write here"}
-             style={styles}
-             value={this.state.searchTerm}
+            type="text"
+            onChange={this.handleChange}
+            onKeyUp={this.handleKeyUp}
+            placeholder={"Write here"}
+            style={styles}
+            value={this.state.searchTerm}
             />
   }
 });

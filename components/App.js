@@ -24,21 +24,21 @@ App = React.createClass({
     },
 
     getGif: function(searchingText, callback) {
-    var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText).data;
-            var gif = {
-            url: data.fixed_width_downsampled_url,
-            sourceUrl: data.url
-            };
-            callback(gif);
-        }
-    };
-    xhr.send();
-},
+        var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText).data;
+                var gif = {
+                    url: data.fixed_width_downsampled_url,
+                    sourceUrl: data.url
+                };
+                callback(gif);
+            }
+        };
+        xhr.send();
+    },
 
     render: function() {
         var styles = {
@@ -48,16 +48,16 @@ App = React.createClass({
         };
 
         return (
-          <div style={styles}>
+            <div style={styles}>
                 <h1>Gifs search engine!</h1>
                 <p>Find a gif <a href='http://giphy.com'>giphy</a>. Press enter to load more gifs.</p>
                 <Search onSearch={this.handleSearch}/>
-            <Gif
-            loading={this.state.loading}
-            url={this.state.gif.url}
-            sourceUrl={this.state.gif.sourceUrl}
-            />
-          </div>
+                <Gif
+                loading={this.state.loading}
+                url={this.state.gif.url}
+                sourceUrl={this.state.gif.sourceUrl}
+                />
+            </div>
         );
     }
 });
